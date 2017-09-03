@@ -1,12 +1,13 @@
 # GeneTranscriptionFactorBindingKappaRule
 Python code to generate Kappa rules for an n-site Gene-Transcription factor binding combination
 
-#Input: agent=['Gene','TranscriptionFactor']
+# Input: 
+        agent=['Gene','TranscriptionFactor']
         site_type={'G':['t_'], 'TF':['a_']}
         _number_of_tf=n (number of transcripton factors)
-		number_of_sites ={'G':[_number_of_tf], 'TF':[_number_of_tf]} 
+	number_of_sites ={'G':[_number_of_tf], 'TF':[_number_of_tf]} 
 
-#Output:
+# Output:
 
 For n=2
 
@@ -25,17 +26,16 @@ For n=2
 'binding_rule_4' G(t_0!0,t_1),TF(a_0!0,a_1) -> G(t_0!0,t_1!1),TF(a_0!0,a_1!1) @ 'k_fwd_4'
 -------------------------------------- ########### ------------------------------------
 
-#Pictorial overview:
+# Pictorial overview:
 
-                                    	 _ 	_  (Gene)
-                                     	t_0 t_1
-                                     
-                                   		  /    \
-                                   		 /      \
- (binding_rule_1)			   (a_0)  *_ _      _ *_ (a_1)     		(binding_rule_2)
-                                         \       /
-                                          \     / 
-                         (binding_rule_4)  *_ _*  (binding_rule_3)
+                                    	 	 _   _  (Gene)
+                                     		t_0 t_1    
+                                   		 /    \
+                                   		/      \
+ (binding_rule_1)			 (a_0)*_ _      _ *_ (a_1)     		(binding_rule_2)
+                                       	        \       /
+                                           	 \     / 
+                        	(binding_rule_4)  *_ _*  (binding_rule_3)
 
 
                                 
