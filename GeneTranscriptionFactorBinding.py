@@ -42,6 +42,7 @@ import sys
 from sys import *
 import argparse
 import getopt
+
 """ Setting the KaSim path 
 
 """ 
@@ -60,11 +61,7 @@ class GeneTranscriptionFactorBinding(object):
       self.number_of_sites = number_of_sites
 
     def _site_enumeration(self):
-      """  
-
-          Return: 
-
-      """
+      
       site_type_dict = {}  # site_type_dict = {'TF/G_sites_type_x_': ['x_k']}
 
       for key in site_type.keys():
@@ -74,14 +71,7 @@ class GeneTranscriptionFactorBinding(object):
       return site_type_dict 
 
     def _creating_monomers(self, e_s,s_t):
-        """  
-          
-          Arg: 
-
-
-          Return: 
-
-      """
+       
         for site_t in s_t.keys():
           concat_sites = []
            
@@ -201,7 +191,6 @@ class GeneTranscriptionFactorBinding(object):
             
 if __name__ == "__main__":
 
-    #ifile=''
     ofile=''
     _arg_tf_check=0
     _arg_output_check=0
@@ -221,8 +210,8 @@ if __name__ == "__main__":
             _arg_tf_check=1
         if o == '-o':
             ofile=str(a)
-            _arg_output_check==1
-    if (_arg_tf_check==1 & _arg_output_check==1):
+            _arg_output_check=1
+    if ((_arg_tf_check==1) & (_arg_output_check==1)):
 
             agent=['Gene','TranscriptionFactor']
             site_type={'G':['t_'], 'TF':['a_']}
