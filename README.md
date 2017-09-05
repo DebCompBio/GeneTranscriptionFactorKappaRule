@@ -1,5 +1,5 @@
 # Kappa rules for gene transcription factors binding 
-   Python code to generate Kappa rules for n-sites Gene-Transcription factor binding combination
+   Python code based on PySb (https://github.com/pysb/pysb) to generate Kappa rules for n-sites Gene-Transcription factor binding combination
 
 # Input: 
         1.  agent=['Gene','TranscriptionFactor']
