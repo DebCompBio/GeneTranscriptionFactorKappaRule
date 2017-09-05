@@ -38,10 +38,14 @@ import numpy as np
 import re
 from operator import itemgetter
 import itertools
+import sys
+from sys import *
+import argparse
+import getopt
 """ Setting the KaSim path 
 
 """ 
-pysb.kappa.set_kappa_path('./KaSim')
+pysb.kappa.set_kappa_path('../KaSim/KaSim')
 
 #Global
 Model()
@@ -193,32 +197,68 @@ class GeneTranscriptionFactorBinding(object):
                       G(**_pro_level_gene[rule_iter][iter_rev_pro_level]) + TF(**_pro_level_tf[rule_iter][iter_rev_pro_level]),Parameter('k_fwd_'+str(rule_index), 1e-2))
                     rule_index=rule_index+1 
                rule_iter=rule_iter+1    
-_number_of_tf=1         
-agent=['Gene','TranscriptionFactor']
-site_type={'G':['t_'], 'TF':['a_']}
-number_of_sites ={'G':[_number_of_tf], 'TF':[_number_of_tf]}
-GtObj = GeneTranscriptionFactorBinding(agent, site_type, number_of_sites)
-enumerate_site=GtObj._site_enumeration()
-GtObj._creating_monomers(enumerate_site, site_type)
-[_ub_sites, _b_sites]=GtObj._bounded_unbounded(enumerate_site,site_type)
-transcription_factor_power_set=GtObj._powerset_generation(_ub_sites['TF_a_'].keys())
-gene_power_set=GtObj._powerset_generation(_ub_sites['G_t_'].keys())
-_b_sites_original=copy.deepcopy(_b_sites)
-_pro_level_tf=GtObj._product_level(transcription_factor_power_set,_b_sites,_b_sites_original,'TF')
-_b_sites=copy.deepcopy(_b_sites_original)
-_pro_level_gene=GtObj._product_level(gene_power_set,_b_sites,_b_sites_original,'G')
-_rev_pro_level_tf=GtObj._reverse_product_level(_pro_level_tf)
-_rev_pro_level_gene=GtObj._reverse_product_level(_pro_level_gene)
-rule_index    =1
-rule_iter     =1
-GtObj._generate_kappa_rules(rule_index,rule_iter,_pro_level_tf,_rev_pro_level_tf,_pro_level_gene,_rev_pro_level_gene)
-kappa_str = export(model, 'kappa')
-print(kappa_str)
+
+            
+if __name__ == "__main__":
+
+    #ifile=''
+    ofile=''
+    _arg_tf_check=0
+    _arg_output_check=0
+    try:
+      gtf_opts, args = getopt.getopt(sys.argv[1:],"h,i:o:")
+    except getopt.GetoptError as e:
+        print (str(e))
+        print("Usage: %s -i #transcription_factors -o output" % sys.argv[0])
+        sys.exit(2)
+ 
+    for o, a in gtf_opts:
+
+        if o == '-h':
+          print("Usage: %s -i #transcription_factors -o output" % sys.argv[0]) 
+        if o == '-i':
+            _number_of_tf=int(a)
+            _arg_tf_check=1
+        if o == '-o':
+            ofile=str(a)
+            _arg_output_check==1
+    if (_arg_tf_check==1 & _arg_output_check==1):
+
+            agent=['Gene','TranscriptionFactor']
+            site_type={'G':['t_'], 'TF':['a_']}
+            number_of_sites ={'G':[_number_of_tf], 'TF':[_number_of_tf]}
+            GtObj = GeneTranscriptionFactorBinding(agent, site_type, number_of_sites)
+            enumerate_site=GtObj._site_enumeration()
+            GtObj._creating_monomers(enumerate_site, site_type)
+            [_ub_sites, _b_sites]=GtObj._bounded_unbounded(enumerate_site,site_type)
+            transcription_factor_power_set=GtObj._powerset_generation(_ub_sites['TF_a_'].keys())
+            gene_power_set=GtObj._powerset_generation(_ub_sites['G_t_'].keys())
+            _b_sites_original=copy.deepcopy(_b_sites)
+            _pro_level_tf=GtObj._product_level(transcription_factor_power_set,_b_sites,_b_sites_original,'TF')
+            _b_sites=copy.deepcopy(_b_sites_original)
+            _pro_level_gene=GtObj._product_level(gene_power_set,_b_sites,_b_sites_original,'G')
+            _rev_pro_level_tf=GtObj._reverse_product_level(_pro_level_tf)
+            _rev_pro_level_gene=GtObj._reverse_product_level(_pro_level_gene)
+            rule_index    =1
+            rule_iter     =1
+            GtObj._generate_kappa_rules(rule_index,rule_iter,_pro_level_tf,_rev_pro_level_tf,_pro_level_gene,_rev_pro_level_gene)
+            
+            kappa_str = export(model, 'kappa')
+            print(kappa_str)
+
+            """ Uncomment the lines below to save the output in a Kappa file
+                for further simulation using KaSim
+            """     
+            #with open(file_name+'.ka', 'wt') as f:
+            #     f.write(kappa_str)
+    else:
+        print "Not enough arguments\n"
+        print("Usage: %s -i #transcription_factors -o output\n" % sys.argv[0])
 
 """ Writing the rules to a file
 """
-#with open('GeneTranscriptionFactorBinding.ka', 'wt') as f:
-#       f.write(kappa_str)
+
+
 
 
 
