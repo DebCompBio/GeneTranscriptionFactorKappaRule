@@ -255,10 +255,6 @@ if __name__ == "__main__":
         print "Not enough arguments\n"
         print("Usage: %s -i #transcription_factors -o output\n" % sys.argv[0])
 
-""" Writing the rules to a file
-"""
-
-
 
 
 
