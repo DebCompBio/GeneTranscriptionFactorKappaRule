@@ -2,7 +2,7 @@
    Python code based on PySb (https://github.com/pysb/pysb) to generate Kappa rules for n-sites Gene-Transcription factor binding combination
 
 # Input: 
-        python GeneTranscriptionFactorKappaRule -i #transcription_factors -o <output_file>
+        python GeneTranscriptionFactorBinding.py -i #transcription_factors -o <output_file>
 
 # Output:
 
